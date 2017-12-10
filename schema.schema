@@ -1,0 +1,21 @@
+
+type test implements test1  
+{
+  id: String
+  name: String
+}
+
+type test1{
+  id: String!
+  NANANANAN: [String!] @deprecated
+  comeOn: next
+}
+
+type next{
+  laal: Int! @deprecated
+}
+
+enum WHATEVER {
+  EINS
+  ZWEI
+}
