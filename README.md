@@ -28,10 +28,7 @@ func GetTest() *graphql.Object {
 
 So you can use Schemafiles ...
 ##  How to Use
-You need to install: 
-```
-go get -u github.com/dave/jennifer/jen
-```
+
 
 Check out the Repo: 
 Write your schema to the schema.schema file an run the main.go
