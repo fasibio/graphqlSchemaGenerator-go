@@ -1,7 +1,6 @@
 package goCodeGenerator
 
 import (
-	"fmt"
 	"strings"
 
 	"fasibio.de/graphqlSchemaGenerator-go/helper"
@@ -58,7 +57,7 @@ func getGraphQlType(fieldValue schemaInterpretations.Field) *Statement {
 	return result
 
 }
-func GenerateFile(schemaList []schemaInterpretations.Schema, enumList []schemaInterpretations.Enum) {
+func GetGenerateFile(schemaList []schemaInterpretations.Schema, enumList []schemaInterpretations.Enum) string {
 	f := NewFile("schema")
 	for _, value := range schemaList {
 		var typeStructValues []Code
@@ -92,5 +91,5 @@ func GenerateFile(schemaList []schemaInterpretations.Schema, enumList []schemaIn
 		)
 
 	}
-	fmt.Printf("%#v", f)
+	return f.GoString()
 }

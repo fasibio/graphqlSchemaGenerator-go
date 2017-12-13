@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"regexp"
 
 	"fasibio.de/graphqlSchemaGenerator-go/goCodeGenerator"
 	"fasibio.de/graphqlSchemaGenerator-go/schemaInterpretations"
@@ -19,21 +18,6 @@ func main() {
 	}
 	schemaStr := string(buf)
 
-	var re = regexp.MustCompile(`(?ms)type.*?\}`)
-	schemas := re.FindAllString(schemaStr, -1)
-
-	var schemaList []schemaInterpretations.Schema
-	var enumList []schemaInterpretations.Enum
-	for index := range schemas {
-		schemaList = append(schemaList, schemaInterpretations.GetSchemaObj(schemas[index]))
-	}
-
-	var reEnum = regexp.MustCompile(`(?ms)enum.*?\}`)
-	enums := reEnum.FindAllString(schemaStr, -1)
-	for index := range enums {
-		enumList = append(enumList, schemaInterpretations.GetEnumObj(enums[index]))
-	}
-	//fmt.Printf("%+v\n", enumList)
-	goCodeGenerator.GenerateFile(schemaList, enumList)
-
+	goCode := goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr), schemaInterpretations.GetEnumList(schemaStr))
+	fmt.Printf(goCode)
 }

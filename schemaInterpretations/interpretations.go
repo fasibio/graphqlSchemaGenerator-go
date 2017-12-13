@@ -1,6 +1,7 @@
 package schemaInterpretations
 
 import (
+	"regexp"
 	"strings"
 
 	"fasibio.de/graphqlSchemaGenerator-go/helper"
@@ -54,7 +55,29 @@ func getFields(fields []string) []Field {
 	return result
 }
 
-func GetEnumObj(enumStr string) Enum {
+func GetEnumList(schemaStr string) []Enum {
+	var enumList []Enum
+
+	var reEnum = regexp.MustCompile(`(?ms)enum.*?\}`)
+	enums := reEnum.FindAllString(schemaStr, -1)
+	for index := range enums {
+		enumList = append(enumList, getEnumObj(enums[index]))
+	}
+	return enumList
+}
+
+func GetSchemaList(schemaStr string) []Schema {
+	var re = regexp.MustCompile(`(?ms)type.*?\}`)
+	schemas := re.FindAllString(schemaStr, -1)
+
+	var schemaList []Schema
+	for index := range schemas {
+		schemaList = append(schemaList, getSchemaObj(schemas[index]))
+	}
+	return schemaList
+}
+
+func getEnumObj(enumStr string) Enum {
 	index := strings.Index(enumStr, "{")
 	enumStrArray := []rune(enumStr)
 	name := string(enumStrArray[5:index])
@@ -72,7 +95,7 @@ func GetEnumObj(enumStr string) Enum {
 	}
 }
 
-func GetSchemaObj(schemaStr string) Schema {
+func getSchemaObj(schemaStr string) Schema {
 	index := strings.Index(schemaStr, "{")
 	schemaStrArray := []rune(schemaStr)
 	name := string(schemaStrArray[5:index])
