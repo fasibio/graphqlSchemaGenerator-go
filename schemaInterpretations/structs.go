@@ -13,3 +13,8 @@ type Field struct {
 	Required     bool
 	IsArray      bool
 }
+
+type Enum struct {
+	Name   string
+	Values []string
+}

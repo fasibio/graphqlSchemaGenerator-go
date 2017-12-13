@@ -54,6 +54,24 @@ func getFields(fields []string) []Field {
 	return result
 }
 
+func GetEnumObj(enumStr string) Enum {
+	index := strings.Index(enumStr, "{")
+	enumStrArray := []rune(enumStr)
+	name := string(enumStrArray[5:index])
+	name = strings.Trim(name, "\n")
+	name = helper.TrimEmpty(name)
+	rest := string(enumStrArray[index+1:])
+	rest = strings.TrimRight(rest, "}")
+	fields := strings.Split(rest, "\n")
+	for index, value := range fields {
+		fields[index] = helper.TrimEmpty(value)
+	}
+	return Enum{
+		Name:   name,
+		Values: fields,
+	}
+}
+
 func GetSchemaObj(schemaStr string) Schema {
 	index := strings.Index(schemaStr, "{")
 	schemaStrArray := []rune(schemaStr)
