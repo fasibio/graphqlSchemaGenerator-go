@@ -1,13 +1,13 @@
 
-type test implements test1  
-{
-  id: String
-  name: String
-}
-
-type test1{
-  id: String!
-  NANANANAN: [String!] @deprecated
+type test implements test1  #zeilen kommentar
+{#zeilen kommentar
+  id: String#zeilen kommentar
+  name: String#zeilen kommentar
+}#zeilen kommentar
+#überschriften kommentar
+type test1{#zeilen kommentar
+  id: String! #zeilen kommentar
+  NANANANAN: [String!] @deprecated 
   comeOn: next
 }
 
@@ -15,7 +15,7 @@ type next{
   laal: Int! @deprecated
 }
 
-enum WHATEVER {
-  EINS
-  ZWEI
+enum WHATEVER {#zeilen kommentar
+  EINS#zeilen kommentar
+  ZWEI#zeilen kommentar
 }

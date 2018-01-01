@@ -1,6 +1,7 @@
 package schemaInterpretations
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -17,7 +18,7 @@ func splitByKeyword(value string, keyWord string) (string, string) {
 func getFields(fields []string) []Field {
 	var result []Field
 	for _, v := range fields {
-
+		v = removeCommentsFromLine(v)
 		indexOfSeperator := strings.Index(v, ":")
 		if indexOfSeperator != -1 {
 			vStrArray := []rune(v)
@@ -66,6 +67,19 @@ func GetEnumList(schemaStr string) []Enum {
 	return enumList
 }
 
+func removeCommentsFromLine(line string) string {
+	commentBeginIndex := strings.Index(line, "#")
+	lineStrArray := []rune(line)
+	result := line
+	if commentBeginIndex != -1 {
+		result = string(lineStrArray[0:commentBeginIndex])
+	}
+
+	fmt.Println("line:" + result)
+
+	return result
+}
+
 func GetSchemaList(schemaStr string) []Schema {
 	var re = regexp.MustCompile(`(?ms)type.*?\}`)
 	schemas := re.FindAllString(schemaStr, -1)
@@ -87,10 +101,11 @@ func getEnumObj(enumStr string) Enum {
 	rest = strings.TrimRight(rest, "}")
 	fields := strings.Split(rest, "\n")
 	for index, value := range fields {
+		value = removeCommentsFromLine(value)
 		fields[index] = helper.TrimEmpty(value)
 	}
 	return Enum{
-		Name:   name,
+		Name:   removeCommentsFromLine(name),
 		Values: fields,
 	}
 }
@@ -109,8 +124,8 @@ func getSchemaObj(schemaStr string) Schema {
 	rest = strings.TrimRight(rest, "}")
 	fields := strings.Split(rest, "\n")
 	return Schema{
-		Name:       name,
+		Name:       removeCommentsFromLine(name),
 		Fields:     getFields(fields),
-		Implements: implement,
+		Implements: removeCommentsFromLine(implement),
 	}
 }

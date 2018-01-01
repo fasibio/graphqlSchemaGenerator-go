@@ -21,3 +21,4 @@ func main() {
 	goCode := goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr), schemaInterpretations.GetEnumList(schemaStr))
 	fmt.Printf(goCode)
 }
+
