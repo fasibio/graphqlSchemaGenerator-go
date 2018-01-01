@@ -1,7 +1,6 @@
 package schemaInterpretations
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -74,9 +73,6 @@ func removeCommentsFromLine(line string) string {
 	if commentBeginIndex != -1 {
 		result = string(lineStrArray[0:commentBeginIndex])
 	}
-
-	fmt.Println("line:" + result)
-
 	return result
 }
 
