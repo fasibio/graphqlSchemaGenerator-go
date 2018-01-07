@@ -6,7 +6,9 @@ import (
 )
 
 func TrimEmpty(value string) string {
-	return strings.Trim(value, " ")
+	result := strings.Trim(value, " ")
+	result = strings.Trim(result, "\t")
+	return result
 }
 
 func MatchString(rexexp string, value string) bool {

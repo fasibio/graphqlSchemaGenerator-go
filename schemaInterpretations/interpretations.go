@@ -38,6 +38,7 @@ func getFields(fields []string) []Field {
 				value = string(value[1 : len(value)-1])
 			}
 			key = helper.TrimEmpty(key)
+
 			if helper.MatchString("!$", value) {
 				required = true
 				value, _ = splitByKeyword(value, "!")
