@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 
-	"fasibio.de/graphqlSchemaGenerator-go/goCodeGenerator"
-	"fasibio.de/graphqlSchemaGenerator-go/schemaInterpretations"
+	"github.com/fasibio/graphqlSchemaGenerator-go/goCodeGenerator"
+	"github.com/fasibio/graphqlSchemaGenerator-go/schemaInterpretations"
 )
 
 func main() {
@@ -21,4 +21,3 @@ func main() {
 	goCode := goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr), schemaInterpretations.GetEnumList(schemaStr))
 	fmt.Printf(goCode)
 }
-

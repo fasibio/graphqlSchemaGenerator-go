@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"fasibio.de/graphqlSchemaGenerator-go/helper"
+	"github.com/fasibio/graphqlSchemaGenerator-go/helper"
 )
 
 func splitByKeyword(value string, keyWord string) (string, string) {

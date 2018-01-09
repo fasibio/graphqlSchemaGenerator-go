@@ -3,9 +3,9 @@ package goCodeGenerator
 import (
 	"strings"
 
-	"fasibio.de/graphqlSchemaGenerator-go/helper"
-	"fasibio.de/graphqlSchemaGenerator-go/schemaInterpretations"
 	. "github.com/dave/jennifer/jen"
+	"github.com/fasibio/graphqlSchemaGenerator-go/helper"
+	"github.com/fasibio/graphqlSchemaGenerator-go/schemaInterpretations"
 )
 
 func getGoDataType(typeStr string) (string, bool) {
