@@ -36,6 +36,11 @@ func GetTest() *graphql.Object {
  - Use the [webpage](http://gql2go.fasibio.de)
 ### Complexer
  - Use the [graphql Api](http://gql2go.fasibio.de/graphql) to get the Go Code String at API Result
+ ```gql
+ {
+  generateGoCode(schemaStr: "your schema file at string the \n(breaks are importent) ")
+}
+ ```
 ### Complex
 ```go get github.com/fasibio/graphqlSchemaGenerator-go```
 
