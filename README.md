@@ -1,10 +1,10 @@
 # Project name
-
 Graphql Schema Generator
 
 
 # Description
-Generate graphql-go code from a Schemafile.
+Generate Go code from a GraphQL schema.
+For example:
 ```gql
 type test {
   id: Int!
@@ -13,7 +13,7 @@ type test {
 
 ```
 
-generate
+will generate:
 
 ```gql
 package schema
@@ -31,17 +31,17 @@ func GetTest() *graphql.Object {
 
 ```
 # Usage
-## Generate the Golang Code
+## Generate Go Code
 ### Simple
  - Use the [webpage](http://gql2go.fasibio.de)
-### Complexer
- - Use the [graphql Api](http://gql2go.fasibio.de/graphql) to get the Go Code String at API Result
+### Advanced
+ - Use the [graphql Api](http://gql2go.fasibio.de/graphql) to get Go code from a schema string
  ```gql
  {
   generateGoCode(schemaStr: "your schema file at string the \n(breaks are importent) ")
 }
  ```
-### Complex
+### Advanced
 ```go get github.com/fasibio/graphqlSchemaGenerator-go```
 
 ```golang
@@ -53,12 +53,12 @@ import (
   goCode := goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr),   schemaInterpretations.GetEnumList(schemaStr))
 ```
 
-## Use the generated Code in your Go-Application
+## Use the generated code in your Go application
 See [https://github.com/graphql-go/graphql](https://github.com/graphql-go/graphql)
-to learn how to Use graphql in Go
-- Generate a Folder/Package schema in you Project
-- Copy the generated Go File to a folder schema in a for example schema.go
-- Create Graphql Queries and set as Type the generated Graphql Schema you want to use. As result you can fill the Generated struct
+to learn how to use GraphQL in Go
+- Generate a folder/package schema in your project
+- Copy the generated Go file to a folder schema (for example a schema.go)
+- Create GraphQL queries and set the type as the generated Graphql Schema you want to use. As result you can fill the generated struct
 ```golang
 
 	fields := graphql.Fields{
@@ -83,18 +83,18 @@ to learn how to Use graphql in Go
 		},
 ```
 
-# By the way 
-  - The generator is in Work 
-  - Im Happy if you want to help to make it better
-  - So feel free to open issu or send Pull Requests
+# Notes
+  - The generator is a work in progress
+  - I'm happy if you want to help to make it better
+  - So feel free to open an issue or send pull requests
 
 # TODO
 - [x] understand schemas
-- [x] generate Code for Schemas
-  - [x] understand Deprecated
-  - [] generate Code for Deprecated 
-- [x] understand Enums
-- [] generate Code for Enums
+- [x] generate code for schemas
+  - [x] understand deprecated
+  - [] generate code for deprecated 
+- [x] understand enums
+- [] generate code for enums
 
 # License 
 GNU General Public License v3.0
