@@ -41,7 +41,7 @@ func GetTest() *graphql.Object {
   generateGoCode(schemaStr: "your schema file at string the \n(breaks are importent) ")
 }
  ```
-### Advanced
+### Expert
 ```go get github.com/fasibio/graphqlSchemaGenerator-go```
 
 ```golang
