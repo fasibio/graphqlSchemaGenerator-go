@@ -80,14 +80,19 @@ func GetGenerateFile(schemaList []schemaInterpretations.Schema, enumList []schem
 		f.Type().Id(strings.Title(value.Name)).Struct(
 			typeStructValues...,
 		)
-
-		f.Func().Id("Get" + strings.Title(value.Name)).Params().Id("*graphql.Object").Block(
-			Return(Qual("github.com/graphql-go/graphql", "NewObject").Call(
+		singletonVal := helper.MakeFirstLowerCase(strings.ToUpper(strings.Title(value.Name)))
+		f.Var().Add(Id(singletonVal), Id("*graphql.Object"))
+		f.Func().Id("Get"+strings.Title(value.Name)).Params().Id("*graphql.Object").Block(
+			If(Id(singletonVal).Op("!=").Id("nil")).Block(
+				Return(Id(singletonVal)),
+			),
+			Id(singletonVal).Op("=").Add(Qual("github.com/graphql-go/graphql", "NewObject").Call(
 				Qual("github.com/graphql-go/graphql", "ObjectConfig").Values(
 					Id("Name:").Lit(helper.TrimEmpty(value.Name)),
 					Id("Fields:").Qual("github.com/graphql-go/graphql", "Fields").Values(graphQLFields...),
 				),
 			)),
+			Return(Id(singletonVal)),
 		)
 
 	}

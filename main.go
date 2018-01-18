@@ -12,7 +12,7 @@ import (
 func main() {
 
 	fmt.Println("Lets go")
-	buf, err := ioutil.ReadFile("/home/fasibio/git/goWorkspace/src/fasibio.de/graphqlSchemaGenerator-go/schema.schema")
+	buf, err := ioutil.ReadFile("/home/fasibio/git/goWorkspace/src/github.com/fasibio/graphqlSchemaGenerator-go/schema.schema")
 	if err != nil {
 		log.Fatalln(err)
 	}
