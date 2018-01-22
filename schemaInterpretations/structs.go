@@ -18,3 +18,14 @@ type Enum struct {
 	Name   string
 	Values []string
 }
+
+type Query struct {
+	Name       string
+	Params     []QueryParam
+	RetrunType string
+}
+
+type QueryParam struct {
+	Name string
+	Type string
+}

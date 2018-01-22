@@ -18,6 +18,6 @@ func main() {
 	}
 	schemaStr := string(buf)
 
-	goCode := goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr), schemaInterpretations.GetEnumList(schemaStr))
-	fmt.Printf(goCode)
+	goCodeGenerator.GetGenerateFile(schemaInterpretations.GetSchemaList(schemaStr), schemaInterpretations.GetEnumList(schemaStr))
+	// fmt.Printf(goCode)
 }

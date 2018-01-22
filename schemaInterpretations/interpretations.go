@@ -1,6 +1,7 @@
 package schemaInterpretations
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -77,13 +78,59 @@ func removeCommentsFromLine(line string) string {
 	return result
 }
 
+func getQueryParams(paramsStr string) []QueryParam {
+	lines := strings.Split(paramsStr, ",")
+	var result []QueryParam
+	for index := range lines {
+		oneParamStr := lines[index]
+		oneParamStr = helper.TrimEmpty(oneParamStr)
+		paramLines := strings.Split(oneParamStr, ":")
+		result = append(result, QueryParam{
+			Name: helper.TrimEmpty(paramLines[0]),
+			Type: helper.TrimEmpty(paramLines[1]),
+		})
+	}
+	return result
+}
+
+func getQuery(line string) Query {
+	paramBeginIndex := strings.Index(line, "(")
+	paramEndIndex := strings.Index(line, ")")
+	line = helper.TrimEmpty(line)
+	schemaStrArray := []rune(line)
+	name := string(schemaStrArray[0 : paramBeginIndex-2])
+	name = strings.Trim(name, "\n")
+	name = helper.TrimEmpty(name)
+	return Query{
+		Name:   name,
+		Params: getQueryParams(string(schemaStrArray[paramBeginIndex-1 : paramEndIndex-2])),
+	}
+}
+
+func GetQuerys(schemaStr string) []Query {
+	var re = regexp.MustCompile(`(?ms)type query.*?\}`)
+	schemas := re.FindAllString(schemaStr, -1)
+	if len(schemas) > 1 {
+		panic("find more than one query Type!")
+	}
+	querySchema := schemas[0]
+	lines := strings.Split(querySchema, "\n")
+	fmt.Printf("%+v\n", getQuery(lines[1]))
+	return nil
+}
+
 func GetSchemaList(schemaStr string) []Schema {
+	GetQuerys(schemaStr)
 	var re = regexp.MustCompile(`(?ms)type.*?\}`)
 	schemas := re.FindAllString(schemaStr, -1)
 
 	var schemaList []Schema
 	for index := range schemas {
-		schemaList = append(schemaList, getSchemaObj(schemas[index]))
+		schemaObj := getSchemaObj(schemas[index])
+		if schemaObj.Name != "query" {
+			schemaList = append(schemaList, schemaObj)
+		}
+
 	}
 	return schemaList
 }

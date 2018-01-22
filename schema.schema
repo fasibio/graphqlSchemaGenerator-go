@@ -1,21 +1,19 @@
-
-type test implements test1  #zeilen kommentar
-{#zeilen kommentar
-  id: String#zeilen kommentar
-  name: String#zeilen kommentar
-}#zeilen kommentar
-#überschriften kommentar
-type test1{#zeilen kommentar
-  id: String! #zeilen kommentar
-  NANANANAN: [String!] @deprecated 
-  comeOn: next
+type query{
+  registryUser(password: String, email: String): Boolean
+  confirmUser(token: String)
+  login(username: String, password: String): UserToken
+  logout(refreshToken: String): Boolean
+  verifyToken(accessToken: String)
+  userInfo(accessToken: String)
 }
 
-type next{
-  laal: Int! @deprecated
+type userToken{
+  accessToken: String
+  refreshToken: String
 }
 
-enum WHATEVER {#zeilen kommentar
-  EINS#zeilen kommentar
-  ZWEI#zeilen kommentar
+type user{
+  email: String
+  registryDate: String
+  publicKey: [String]
 }
